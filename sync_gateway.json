@@ -1,0 +1,66 @@
+{
+    "interface": ":4984",
+    "adminInterface": ":4985",
+    "logging": {
+        "log_file_path": "/home/sync_gateway/logs",
+        "console": {
+          "log_level": "info",
+          "log_keys": ["*"]
+          },
+        "error": {
+          "enabled": true,
+          "rotation": {
+            "max_size": 50,
+            "max_age": 180
+            }
+          },
+        "warn": {
+          "enabled": true,
+          "rotation": {
+            "max_size": 50,
+            "max_age": 180
+            }
+          },
+        "info": {
+          "enabled": true,
+          "rotation": {
+            "max_size": 100,
+            "max_age": 180
+            }
+        },
+        "debug": {
+          "enabled": false,
+          "rotation": {
+            "max_size": 100,
+            "max_age": 180
+            }
+          }
+        },
+    "databases": {
+      "change_me_db": {
+       "server": "http://couchbase-server:8091",
+        "bucket": "change_me_bucket",
+        "username": "Administrator",
+        "password": "password",
+        "num_index_replicas": 0,
+        "enable_shared_bucket_access": true,
+        "import_docs": true,
+        "users": {
+          "GUEST": {"disabled": true, "admin_channels": ["*"] },
+          "tom": {"disabled": false, "admin_channels": ["*"], "password": "password" }
+        },        
+        "sync": `function (doc, oldDoc) {
+            //Prevent mobile from deleting any docs            
+            if (doc.$Channels) {
+                channel(doc.$Channels);
+            }
+        }`,
+        "allow_conflicts": false,
+        "revs_limit": 10,
+        "delta_sync": {
+          "enabled": true
+        }
+      }      
+    }
+}
+

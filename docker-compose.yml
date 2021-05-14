@@ -1,0 +1,34 @@
+version: '2.2'
+services:
+  couchbase-server:
+    build:
+      context: .
+      dockerfile: Couchbase.Dockerfile
+# Limit CPU and Memory usage here
+    # cpus: 0.5
+    mem_limit: 1024m
+    ports:
+      - 8091:8091
+      - 8092:8092
+      - 8093:8093
+      - 8094:8094
+      - 11210:11210
+    environment:
+# Change_Me - update the bucket name as desired. Note: You must use the same bucket in sync-gateway definition too
+      - BUCKET=mybucket
+  sync-gateway:
+    build:
+      context: .
+      dockerfile: SG.Dockerfile
+# Limit CPU and Memory usage here      
+    # cpus: 0.5
+    mem_limit: 1024m
+    ports:
+      - 4984:4984
+      - 4985:4985      
+    environment:
+# Change_Me - update the SG DB name as desired
+# Sync Gateway function is coded to look for a key of '$Channels' in CB document and create a channel using its value. 
+# e.g. A KV of "$Channels": "customer::bob"  in any document will cause the doc to be available in SG on a channel called "customer::bob"
+      - SGDB=mysgdb
+      - BUCKET=mybucket
