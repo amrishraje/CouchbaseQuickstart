@@ -9,7 +9,7 @@ This repo provides a set of docker-compose scripts that will setup a Couchabse D
 ## Getting Started
 1. Clone the repo to your computer
 ```
-git clone https://github.com/amrishraje/CBLiteTester.git
+git clone https://github.com/amrishraje/CouchbaseQuickstart.git
 ```
 2. cd to the directory containing `docker-compose.yaml` file
 ```
