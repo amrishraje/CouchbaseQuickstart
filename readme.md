@@ -13,7 +13,7 @@ git clone https://github.com/amrishraje/CouchbaseQuickstart.git
 ```
 2. cd to the directory containing `docker-compose.yaml` file
 ```
-cd CB_SG
+cd CouchbaseQuickstart
 ```
 3. Run docker-compose up
 ```
