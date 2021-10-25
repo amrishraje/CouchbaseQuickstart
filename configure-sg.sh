@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 sed -i "s/change_me_bucket/$BUCKET/g" /home/sync_gateway/sync_gateway.json
 sed -i "s/change_me_db/$SGDB/g" /home/sync_gateway/sync_gateway.json
 sleep 30

@@ -1,4 +1,4 @@
-version: '2.2'
+version: '3.0'
 services:
   couchbase-server:
     build:
@@ -16,6 +16,25 @@ services:
     environment:
 # Change_Me - update the bucket name as desired. Note: You must use the same bucket in sync-gateway definition too
       - BUCKET=mybucket
+  couchbase-worker:
+    build:
+      context: .
+      dockerfile: Couchbase.Dockerfile
+# Limit CPU and Memory usage here
+    # cpus: 0.5
+    mem_limit: 1024m
+# Configure number of worker nodes here. replicas=2 means 2 worker and 1 primary node. Total 3 nodes.
+    deploy:
+      replicas: 0
+    depends_on: 
+      - couchbase-server
+    environment:
+# Change_Me - update the bucket name as desired. Note: You must use the same bucket in sync-gateway definition too
+      - BUCKET=mybucket
+      - TYPE=WORKER
+      # Auto rebalance can be made false if you want to rebalance cluster via the UI manually
+      - AUTO_REBALANCE=true
+      - COUCHBASE_MASTER=couchbase-server
   sync-gateway:
     build:
       context: .
@@ -23,6 +42,8 @@ services:
 # Limit CPU and Memory usage here      
     # cpus: 0.5
     mem_limit: 1024m
+    depends_on: 
+      - couchbase-server
     ports:
       - 4984:4984
       - 4985:4985      
