@@ -76,6 +76,8 @@ Create a few documents in the bucket `mybucket` and check out documents getting 
 
 Alternatively, you may create your own mobile app and try out couchbase sync. See [tutorials](https://docs.couchbase.com/tutorials/index.html) for creating your own Offline First mobile apps. 
 
+## Troubleshooting
+Latest version of Couchbase Sync Gateway has significant changes to the way the config files are setup. It is recommended that you use SG version 2.8.x and CB version 6.6.x for a smoother experience using this setup. To change Couchbase version, edit the Couchbase.Dockerfile and SG.Dockerfile and change :latest to an older version from dockerhub.
 
 ## Version History
 ### v1.0
